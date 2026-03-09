@@ -1,14 +1,17 @@
+import java.util.Deque;
+import java.util.LinkedList;
+
 public class PalindromeChecker {
 
     private static final String APP_NAME = "Palindrome Checker App";
-    private static final String VERSION = "1.2";
+    private static final String VERSION = "1.6";
 
     public static void main(String[] args) {
 
         showWelcomeMessage();
 
-        // New Feature: Reverse-based Palindrome Check
-        checkUsingReverseMethod();
+        // UC7 Feature
+        checkUsingDeque();
 
         System.out.println("Application execution completed.");
     }
@@ -21,22 +24,32 @@ public class PalindromeChecker {
         System.out.println();
     }
 
-    // 🔥 Feature: Reverse the string using loop
-    private static void checkUsingReverseMethod() {
+    // 🔥 UC7 - Deque Based Optimized Palindrome Check
+    private static void checkUsingDeque() {
 
-        String original = "madam";   // Hardcoded string
-        String reversed = "";
+        String word = "madam";   // Hardcoded string
 
-        // Reverse using for loop
-        for (int i = original.length() - 1; i >= 0; i--) {
-            reversed = reversed + original.charAt(i);
+        Deque<Character> deque = new LinkedList<>();
+
+        // Insert characters into deque
+        for (int i = 0; i < word.length(); i++) {
+            deque.addLast(word.charAt(i));
         }
 
-        // Compare using equals()
-        if (original.equals(reversed)) {
-            System.out.println("The string \"" + original + "\" is a Palindrome.");
+        boolean isPalindrome = true;
+
+        // Compare front and rear
+        while (deque.size() > 1) {
+            if (deque.removeFirst() != deque.removeLast()) {
+                isPalindrome = false;
+                break;
+            }
+        }
+
+        if (isPalindrome) {
+            System.out.println("The string \"" + word + "\" is a Palindrome.");
         } else {
-            System.out.println("The string \"" + original + "\" is NOT a Palindrome.");
+            System.out.println("The string \"" + word + "\" is NOT a Palindrome.");
         }
     }
 }
