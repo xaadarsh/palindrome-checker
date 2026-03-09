@@ -1,14 +1,14 @@
 public class PalindromeChecker {
 
     private static final String APP_NAME = "Palindrome Checker App";
-    private static final String VERSION = "1.2";
+    private static final String VERSION = "1.3";
 
     public static void main(String[] args) {
 
         showWelcomeMessage();
 
-        // New Feature: Reverse-based Palindrome Check
-        checkUsingReverseMethod();
+        // New Feature: char[] + Two Pointer Approach
+        checkUsingCharArray();
 
         System.out.println("Application execution completed.");
     }
@@ -21,22 +21,31 @@ public class PalindromeChecker {
         System.out.println();
     }
 
-    // 🔥 Feature: Reverse the string using loop
-    private static void checkUsingReverseMethod() {
+    // 🔥 Feature: Convert String → char[] and check
+    private static void checkUsingCharArray() {
 
-        String original = "madam";   // Hardcoded string
-        String reversed = "";
+        String word = "madam";   // Hardcoded string
 
-        // Reverse using for loop
-        for (int i = original.length() - 1; i >= 0; i--) {
-            reversed = reversed + original.charAt(i);
+        char[] characters = word.toCharArray();   // Convert to char[]
+
+        int left = 0;
+        int right = characters.length - 1;
+
+        boolean isPalindrome = true;
+
+        while (left < right) {
+            if (characters[left] != characters[right]) {
+                isPalindrome = false;
+                break;
+            }
+            left++;
+            right--;
         }
 
-        // Compare using equals()
-        if (original.equals(reversed)) {
-            System.out.println("The string \"" + original + "\" is a Palindrome.");
+        if (isPalindrome) {
+            System.out.println("The string \"" + word + "\" is a Palindrome.");
         } else {
-            System.out.println("The string \"" + original + "\" is NOT a Palindrome.");
+            System.out.println("The string \"" + word + "\" is NOT a Palindrome.");
         }
     }
 }
