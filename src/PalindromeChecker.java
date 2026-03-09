@@ -1,14 +1,14 @@
 public class PalindromeChecker {
 
     private static final String APP_NAME = "Palindrome Checker App";
-    private static final String VERSION = "1.2";
+    private static final String VERSION = "1.8";
 
     public static void main(String[] args) {
 
         showWelcomeMessage();
 
-        // New Feature: Reverse-based Palindrome Check
-        checkUsingReverseMethod();
+        // UC9 Feature
+        checkUsingRecursion();
 
         System.out.println("Application execution completed.");
     }
@@ -21,22 +21,32 @@ public class PalindromeChecker {
         System.out.println();
     }
 
-    // 🔥 Feature: Reverse the string using loop
-    private static void checkUsingReverseMethod() {
+    // 🔥 UC9 - Recursive Palindrome Check
+    private static void checkUsingRecursion() {
 
-        String original = "madam";   // Hardcoded string
-        String reversed = "";
+        String word = "madam";   // Hardcoded string
 
-        // Reverse using for loop
-        for (int i = original.length() - 1; i >= 0; i--) {
-            reversed = reversed + original.charAt(i);
-        }
+        boolean isPalindrome = isPalindromeRecursive(word, 0, word.length() - 1);
 
-        // Compare using equals()
-        if (original.equals(reversed)) {
-            System.out.println("The string \"" + original + "\" is a Palindrome.");
+        if (isPalindrome) {
+            System.out.println("The string \"" + word + "\" is a Palindrome.");
         } else {
-            System.out.println("The string \"" + original + "\" is NOT a Palindrome.");
+            System.out.println("The string \"" + word + "\" is NOT a Palindrome.");
         }
+    }
+
+    // Recursive function
+    private static boolean isPalindromeRecursive(String word, int start, int end) {
+
+        // Base condition
+        if (start >= end)
+            return true;
+
+        // Compare characters
+        if (word.charAt(start) != word.charAt(end))
+            return false;
+
+        // Recursive call
+        return isPalindromeRecursive(word, start + 1, end - 1);
     }
 }
