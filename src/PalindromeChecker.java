@@ -1,14 +1,18 @@
+import java.util.Stack;
+import java.util.Queue;
+import java.util.LinkedList;
+
 public class PalindromeChecker {
 
     private static final String APP_NAME = "Palindrome Checker App";
-    private static final String VERSION = "1.2";
+    private static final String VERSION = "1.5";
 
     public static void main(String[] args) {
 
         showWelcomeMessage();
 
-        // New Feature: Reverse-based Palindrome Check
-        checkUsingReverseMethod();
+        // UC6 Feature
+        checkUsingQueueAndStack();
 
         System.out.println("Application execution completed.");
     }
@@ -21,22 +25,35 @@ public class PalindromeChecker {
         System.out.println();
     }
 
-    // 🔥 Feature: Reverse the string using loop
-    private static void checkUsingReverseMethod() {
+    // 🔥 UC6 - Queue + Stack Based Check
+    private static void checkUsingQueueAndStack() {
 
-        String original = "madam";   // Hardcoded string
-        String reversed = "";
+        String word = "madam";  // Hardcoded string
 
-        // Reverse using for loop
-        for (int i = original.length() - 1; i >= 0; i--) {
-            reversed = reversed + original.charAt(i);
+        Stack<Character> stack = new Stack<>();
+        Queue<Character> queue = new LinkedList<>();
+
+        // Insert into both structures
+        for (int i = 0; i < word.length(); i++) {
+            char ch = word.charAt(i);
+            stack.push(ch);        // LIFO
+            queue.add(ch);         // FIFO
         }
 
-        // Compare using equals()
-        if (original.equals(reversed)) {
-            System.out.println("The string \"" + original + "\" is a Palindrome.");
+        boolean isPalindrome = true;
+
+        // Compare dequeue vs pop
+        while (!stack.isEmpty()) {
+            if (stack.pop() != queue.remove()) {
+                isPalindrome = false;
+                break;
+            }
+        }
+
+        if (isPalindrome) {
+            System.out.println("The string \"" + word + "\" is a Palindrome.");
         } else {
-            System.out.println("The string \"" + original + "\" is NOT a Palindrome.");
+            System.out.println("The string \"" + word + "\" is NOT a Palindrome.");
         }
     }
 }
