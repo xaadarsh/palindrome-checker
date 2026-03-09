@@ -1,14 +1,24 @@
 public class PalindromeChecker {
 
     private static final String APP_NAME = "Palindrome Checker App";
-    private static final String VERSION = "1.2";
+    private static final String VERSION = "2.0";
 
     public static void main(String[] args) {
 
         showWelcomeMessage();
 
-        // New Feature: Reverse-based Palindrome Check
-        checkUsingReverseMethod();
+        String word = "madam";
+
+        // Create object of service class
+        PalindromeService service = new PalindromeService();
+
+        boolean result = service.checkPalindrome(word);
+
+        if (result) {
+            System.out.println("The string \"" + word + "\" is a Palindrome.");
+        } else {
+            System.out.println("The string \"" + word + "\" is NOT a Palindrome.");
+        }
 
         System.out.println("Application execution completed.");
     }
@@ -20,23 +30,29 @@ public class PalindromeChecker {
         System.out.println("======================================");
         System.out.println();
     }
+}
 
-    // 🔥 Feature: Reverse the string using loop
-    private static void checkUsingReverseMethod() {
+// 🔥 Service class that handles palindrome logic
+class PalindromeService {
 
-        String original = "madam";   // Hardcoded string
-        String reversed = "";
+    // Public method exposed to the application
+    public boolean checkPalindrome(String word) {
 
-        // Reverse using for loop
-        for (int i = original.length() - 1; i >= 0; i--) {
-            reversed = reversed + original.charAt(i);
+        char[] chars = word.toCharArray();
+
+        int start = 0;
+        int end = chars.length - 1;
+
+        while (start < end) {
+
+            if (chars[start] != chars[end]) {
+                return false;
+            }
+
+            start++;
+            end--;
         }
 
-        // Compare using equals()
-        if (original.equals(reversed)) {
-            System.out.println("The string \"" + original + "\" is a Palindrome.");
-        } else {
-            System.out.println("The string \"" + original + "\" is NOT a Palindrome.");
-        }
+        return true;
     }
 }
