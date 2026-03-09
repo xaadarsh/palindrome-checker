@@ -1,14 +1,14 @@
 public class PalindromeChecker {
 
     private static final String APP_NAME = "Palindrome Checker App";
-    private static final String VERSION = "1.2";
+    private static final String VERSION = "1.9";
 
     public static void main(String[] args) {
 
         showWelcomeMessage();
 
-        // New Feature: Reverse-based Palindrome Check
-        checkUsingReverseMethod();
+        // UC10 Feature
+        checkIgnoringCaseAndSpaces();
 
         System.out.println("Application execution completed.");
     }
@@ -21,22 +21,36 @@ public class PalindromeChecker {
         System.out.println();
     }
 
-    // 🔥 Feature: Reverse the string using loop
-    private static void checkUsingReverseMethod() {
+    // 🔥 UC10 - Ignore Case and Spaces
+    private static void checkIgnoringCaseAndSpaces() {
 
-        String original = "madam";   // Hardcoded string
-        String reversed = "";
+        String sentence = "Never Odd Or Even";
 
-        // Reverse using for loop
-        for (int i = original.length() - 1; i >= 0; i--) {
-            reversed = reversed + original.charAt(i);
+        // Normalize string
+        String normalized = sentence
+                .toLowerCase()
+                .replaceAll("\\s+", "");   // remove spaces
+
+        boolean isPalindrome = true;
+
+        int start = 0;
+        int end = normalized.length() - 1;
+
+        while (start < end) {
+
+            if (normalized.charAt(start) != normalized.charAt(end)) {
+                isPalindrome = false;
+                break;
+            }
+
+            start++;
+            end--;
         }
 
-        // Compare using equals()
-        if (original.equals(reversed)) {
-            System.out.println("The string \"" + original + "\" is a Palindrome.");
+        if (isPalindrome) {
+            System.out.println("\"" + sentence + "\" is a Palindrome (ignoring spaces & case).");
         } else {
-            System.out.println("The string \"" + original + "\" is NOT a Palindrome.");
+            System.out.println("\"" + sentence + "\" is NOT a Palindrome.");
         }
     }
 }
